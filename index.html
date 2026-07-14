@@ -4,58 +4,301 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>🌅 Sunset Guardian</title>
+    <title>CAGR Calculator | Sunset Guardian</title>
+    <meta
+        name="description"
+        content="Calculate compound annual growth rate, total return, and annualized investment growth."
+    >
 
     <style>
+        :root {
+            color-scheme: dark;
+            --background: #101318;
+            --panel: #191e26;
+            --input: #11161d;
+            --border: #343b47;
+            --text: #f3f5f7;
+            --muted: #aeb6c2;
+            --accent: #ffb454;
+            --error: #ff8b8b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            background: #121212;
-            color: #f0f0f0;
-            font-family: Segoe UI, Arial, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
+            background: var(--background);
+            color: var(--text);
+            font-family: "Segoe UI", Arial, sans-serif;
+            line-height: 1.5;
+        }
+
+        main {
+            width: min(720px, calc(100% - 32px));
+            margin: 0 auto;
+            padding: 48px 0;
+        }
+
+        header {
+            margin-bottom: 28px;
             text-align: center;
         }
 
         h1 {
-            font-size: 3em;
-            margin-bottom: .25em;
+            margin: 0 0 8px;
+            font-size: clamp(2rem, 6vw, 3rem);
         }
 
-        p {
-            font-size: 1.2em;
-            color: #b8b8b8;
+        h2 {
+            margin-top: 0;
         }
 
-        a {
-            color: #ffb347;
-            text-decoration: none;
+        .subtitle,
+        .explanation {
+            color: var(--muted);
         }
 
-        a:hover {
-            text-decoration: underline;
+        .card {
+            padding: 28px;
+            background: var(--panel);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+        }
+
+        .inputs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            color: var(--text);
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            font: inherit;
+        }
+
+        input:focus {
+            outline: 2px solid var(--accent);
+            outline-offset: 2px;
+        }
+
+        .results {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 16px;
+            margin-top: 24px;
+        }
+
+        .result {
+            padding: 18px;
+            text-align: center;
+            background: var(--input);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+        }
+
+        .result-label {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--muted);
+            font-size: 0.9rem;
+        }
+
+        .result-value {
+            color: var(--accent);
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+
+        #error {
+            min-height: 24px;
+            margin: 14px 0 0;
+            color: var(--error);
+            text-align: center;
+        }
+
+        .explanation {
+            margin-top: 28px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+        }
+
+        code {
+            color: var(--accent);
+        }
+
+        footer {
+            margin-top: 28px;
+            color: var(--muted);
+            font-size: 0.85rem;
+            text-align: center;
+        }
+
+        @media (max-width: 620px) {
+            main {
+                padding: 28px 0;
+            }
+
+            .inputs,
+            .results {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 20px;
+            }
         }
     </style>
-
 </head>
 
 <body>
+    <main>
+        <header>
+            <h1>🌅 CAGR Calculator</h1>
+            <p class="subtitle">
+                Find an investment's compound annual growth rate and total return.
+            </p>
+        </header>
 
-<div>
+        <section class="card">
+            <div class="inputs">
+                <div>
+                    <label for="startingValue">Starting value</label>
+                    <input
+                        id="startingValue"
+                        type="number"
+                        min="0.01"
+                        step="any"
+                        value="10000"
+                        inputmode="decimal"
+                    >
+                </div>
 
-<h1>🌅 Sunset Guardian</h1>
+                <div>
+                    <label for="endingValue">Ending value</label>
+                    <input
+                        id="endingValue"
+                        type="number"
+                        min="0.01"
+                        step="any"
+                        value="15000"
+                        inputmode="decimal"
+                    >
+                </div>
 
-<p>
-Helping people simplify technology, finance, and automation.
-</p>
+                <div>
+                    <label for="years">Years held</label>
+                    <input
+                        id="years"
+                        type="number"
+                        min="0.01"
+                        step="any"
+                        value="5"
+                        inputmode="decimal"
+                    >
+                </div>
+            </div>
 
-<p>
-Website currently under construction.
-</p>
+            <p id="error" role="alert"></p>
 
-</div>
+            <div class="results" aria-live="polite">
+                <div class="result">
+                    <span class="result-label">CAGR</span>
+                    <span class="result-value" id="cagr">—</span>
+                </div>
 
+                <div class="result">
+                    <span class="result-label">Total return</span>
+                    <span class="result-value" id="totalReturn">—</span>
+                </div>
+            </div>
+
+            <div class="explanation">
+                <h2>What is CAGR?</h2>
+
+                <p>
+                    Compound annual growth rate shows the constant yearly rate
+                    that would turn the starting value into the ending value
+                    over the selected period.
+                </p>
+
+                <p>
+                    Formula:
+                    <code>(Ending value ÷ Starting value)^(1 ÷ Years) − 1</code>
+                </p>
+            </div>
+        </section>
+
+        <footer>
+            For educational purposes only. Results do not include deposits,
+            withdrawals, taxes, fees, or inflation.
+        </footer>
+    </main>
+
+    <script>
+        const startingValueInput = document.getElementById("startingValue");
+        const endingValueInput = document.getElementById("endingValue");
+        const yearsInput = document.getElementById("years");
+
+        const cagrOutput = document.getElementById("cagr");
+        const totalReturnOutput = document.getElementById("totalReturn");
+        const errorOutput = document.getElementById("error");
+
+        const percentFormatter = new Intl.NumberFormat("en-US", {
+            style: "percent",
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+
+        function calculate() {
+            const startingValue = Number(startingValueInput.value);
+            const endingValue = Number(endingValueInput.value);
+            const years = Number(yearsInput.value);
+
+            errorOutput.textContent = "";
+
+            if (
+                !Number.isFinite(startingValue) ||
+                !Number.isFinite(endingValue) ||
+                !Number.isFinite(years) ||
+                startingValue <= 0 ||
+                endingValue <= 0 ||
+                years <= 0
+            ) {
+                cagrOutput.textContent = "—";
+                totalReturnOutput.textContent = "—";
+                errorOutput.textContent =
+                    "Enter values greater than zero in all three fields.";
+                return;
+            }
+
+            const totalReturn = endingValue / startingValue - 1;
+            const cagr = Math.pow(endingValue / startingValue, 1 / years) - 1;
+
+            totalReturnOutput.textContent =
+                percentFormatter.format(totalReturn);
+
+            cagrOutput.textContent =
+                percentFormatter.format(cagr);
+        }
+
+        [startingValueInput, endingValueInput, yearsInput]
+            .forEach(input => input.addEventListener("input", calculate));
+
+        calculate();
+    </script>
 </body>
 </html>
