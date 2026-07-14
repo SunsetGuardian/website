@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>CAGR Calculator | Sunset Guardian</title>
+
     <meta
         name="description"
         content="Calculate compound annual growth rate, total return, and annualized investment growth."
@@ -13,6 +14,7 @@
     <style>
         :root {
             color-scheme: dark;
+
             --background: #101318;
             --panel: #191e26;
             --input: #11161d;
@@ -27,6 +29,10 @@
             box-sizing: border-box;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         body {
             margin: 0;
             background: var(--background);
@@ -35,13 +41,117 @@
             line-height: 1.5;
         }
 
+        a {
+            color: inherit;
+        }
+
+        button,
+        input {
+            font: inherit;
+        }
+
+        /* Site header */
+
+        .site-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(16, 19, 24, 0.96);
+            border-bottom: 1px solid var(--border);
+            backdrop-filter: blur(10px);
+        }
+
+        .site-nav {
+            width: min(1100px, calc(100% - 32px));
+            min-height: 64px;
+            margin: 0 auto;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+        }
+
+        .site-brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+
+            color: var(--text);
+            font-size: 1.15rem;
+            font-weight: 700;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .site-brand:hover,
+        .site-brand:focus-visible {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        .nav-links a {
+            color: var(--muted);
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .nav-links a:hover,
+        .nav-links a:focus-visible {
+            color: var(--accent);
+        }
+
+        .menu-toggle {
+            display: none;
+            width: 44px;
+            height: 44px;
+            padding: 10px;
+
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .menu-toggle span {
+            display: block;
+            width: 100%;
+            height: 2px;
+            margin: 5px 0;
+
+            background: var(--text);
+            border-radius: 2px;
+            transition:
+                transform 0.2s ease,
+                opacity 0.2s ease;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .menu-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        /* Page layout */
+
         main {
             width: min(720px, calc(100% - 32px));
             margin: 0 auto;
             padding: 48px 0;
         }
 
-        header {
+        .page-heading {
             margin-bottom: 28px;
             text-align: center;
         }
@@ -59,6 +169,8 @@
         .explanation {
             color: var(--muted);
         }
+
+        /* Calculator */
 
         .card {
             padding: 28px;
@@ -83,16 +195,24 @@
         input {
             width: 100%;
             padding: 12px;
+
             color: var(--text);
             background: var(--input);
             border: 1px solid var(--border);
             border-radius: 8px;
-            font: inherit;
         }
 
         input:focus {
             outline: 2px solid var(--accent);
             outline-offset: 2px;
+        }
+
+        #error {
+            min-height: 24px;
+            margin: 14px 0 0;
+
+            color: var(--error);
+            text-align: center;
         }
 
         .results {
@@ -104,6 +224,7 @@
 
         .result {
             padding: 18px;
+
             text-align: center;
             background: var(--input);
             border: 1px solid var(--border);
@@ -113,6 +234,7 @@
         .result-label {
             display: block;
             margin-bottom: 4px;
+
             color: var(--muted);
             font-size: 0.9rem;
         }
@@ -121,13 +243,6 @@
             color: var(--accent);
             font-size: 1.8rem;
             font-weight: 700;
-        }
-
-        #error {
-            min-height: 24px;
-            margin: 14px 0 0;
-            color: var(--error);
-            text-align: center;
         }
 
         .explanation {
@@ -142,14 +257,59 @@
 
         footer {
             margin-top: 28px;
+
             color: var(--muted);
             font-size: 0.85rem;
             text-align: center;
         }
 
+        /* Mobile */
+
         @media (max-width: 620px) {
+            .site-nav {
+                position: relative;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 0;
+                right: 0;
+
+                padding: 12px;
+
+                background: var(--panel);
+                border: 1px solid var(--border);
+                border-radius: 10px;
+                box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+            }
+
+            .nav-links.is-open {
+                display: grid;
+                gap: 4px;
+            }
+
+            .nav-links a {
+                padding: 12px;
+                border-radius: 7px;
+            }
+
+            .nav-links a:hover,
+            .nav-links a:focus-visible {
+                background: var(--input);
+            }
+
             main {
                 padding: 28px 0;
+            }
+
+            .page-heading h1 {
+                font-size: clamp(2rem, 11vw, 3rem);
             }
 
             .inputs,
@@ -160,189 +320,52 @@
             .card {
                 padding: 20px;
             }
-            
-            nav {
-                display: flex;
-                justify-content: space-between;
-                align-items: center;
-                margin-bottom: 40px;
-            }
-            
-            nav a {
-                color: var(--text);
-                text-decoration: none;
-            }
-            
-            .nav-links {
-                display: flex;
-                gap: 24px;
-            }
-            
-            .nav-links a:hover {
-                color: var(--accent);
-            }     
-            
-            .site-header {
-                position: sticky;
-                top: 0;
-                z-index: 1000;
-                background: rgba(16, 19, 24, 0.96);
-                border-bottom: 1px solid var(--border);
-                backdrop-filter: blur(10px);
-            }
-            
-            .site-nav {
-                width: min(1100px, calc(100% - 32px));
-                min-height: 64px;
-                margin: 0 auto;
-                display: flex;
-                align-items: center;
-                justify-content: space-between;
-                gap: 24px;
-            }
-            
-            .site-brand {
-                display: inline-flex;
-                align-items: center;
-                gap: 10px;
-                color: var(--text);
-                font-size: 1.15rem;
-                font-weight: 700;
-                text-decoration: none;
-                white-space: nowrap;
-            }
-            
-            .site-brand:hover,
-            .site-brand:focus-visible {
-                color: var(--accent);
-            }
-            
-            .nav-links {
-                display: flex;
-                align-items: center;
-                gap: 24px;
-            }
-            
-            .nav-links a {
-                color: var(--muted);
-                font-weight: 600;
-                text-decoration: none;
-            }
-            
-            .nav-links a:hover,
-            .nav-links a:focus-visible {
-                color: var(--accent);
-            }
-            
-            .menu-toggle {
-                display: none;
-                width: 44px;
-                height: 44px;
-                padding: 10px;
-                background: transparent;
-                border: 1px solid var(--border);
-                border-radius: 8px;
-                cursor: pointer;
-            }
-            
-            .menu-toggle span {
-                display: block;
-                width: 100%;
-                height: 2px;
-                margin: 5px 0;
-                background: var(--text);
-                border-radius: 2px;
-            }
-            
-            .page-heading {
-                margin-bottom: 28px;
-                text-align: center;
-            }
-            
-            @media (max-width: 620px) {
-                .site-nav {
-                    position: relative;
-                }
-            
-                .menu-toggle {
-                    display: block;
-                }
-            
-                .nav-links {
-                    display: none;
-                    position: absolute;
-                    top: calc(100% + 8px);
-                    left: 0;
-                    right: 0;
-                    padding: 12px;
-                    background: var(--panel);
-                    border: 1px solid var(--border);
-                    border-radius: 10px;
-                    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
-                }
-            
-                .nav-links.is-open {
-                    display: grid;
-                    gap: 4px;
-                }
-            
-                .nav-links a {
-                    padding: 12px;
-                    border-radius: 7px;
-                }
-            
-                .nav-links a:hover,
-                .nav-links a:focus-visible {
-                    background: var(--input);
-                }
-            
-                .page-heading h1 {
-                    font-size: clamp(2rem, 12vw, 3rem);
-                }
-            }
         }
     </style>
 </head>
 
 <body>
+    <header class="site-header">
+        <nav class="site-nav" aria-label="Main navigation">
+            <a class="site-brand" href="/">
+                <span aria-hidden="true">🌅</span>
+                <span>Sunset Guardian</span>
+            </a>
+
+            <button
+                class="menu-toggle"
+                type="button"
+                aria-expanded="false"
+                aria-controls="main-menu"
+                aria-label="Open navigation menu"
+            >
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
+            <div class="nav-links" id="main-menu">
+                <a href="/tools/">Tools</a>
+                <a href="/articles/">Articles</a>
+                <a href="/about/">About</a>
+            </div>
+        </nav>
+    </header>
+
     <main>
-        <header class="site-header">
-            <nav class="site-nav" aria-label="Main navigation">
-                <a class="site-brand" href="/">
-                    <span aria-hidden="true">🌅</span>
-                    <span>Sunset Guardian</span>
-                </a>
-        
-                <button
-                    class="menu-toggle"
-                    type="button"
-                    aria-expanded="false"
-                    aria-controls="main-menu"
-                    aria-label="Open navigation menu"
-                >
-                    <span></span>
-                    <span></span>
-                    <span></span>
-                </button>
-        
-                <div class="nav-links" id="main-menu">
-                    <a href="/tools/">Tools</a>
-                    <a href="/articles/">Articles</a>
-                    <a href="/about/">About</a>
-                </div>
-            </nav>
-        </header>
         <section class="page-heading">
             <h1>🌅 CAGR Calculator</h1>
-        
+
             <p class="subtitle">
                 Find an investment's compound annual growth rate and total return.
             </p>
-        </section>        
+        </section>
+
         <section class="card">
             <div class="inputs">
                 <div>
                     <label for="startingValue">Starting value</label>
+
                     <input
                         id="startingValue"
                         type="number"
@@ -355,6 +378,7 @@
 
                 <div>
                     <label for="endingValue">Ending value</label>
+
                     <input
                         id="endingValue"
                         type="number"
@@ -367,6 +391,7 @@
 
                 <div>
                     <label for="years">Years held</label>
+
                     <input
                         id="years"
                         type="number"
@@ -415,13 +440,23 @@
     </main>
 
     <script>
-        const startingValueInput = document.getElementById("startingValue");
-        const endingValueInput = document.getElementById("endingValue");
-        const yearsInput = document.getElementById("years");
+        const startingValueInput =
+            document.getElementById("startingValue");
 
-        const cagrOutput = document.getElementById("cagr");
-        const totalReturnOutput = document.getElementById("totalReturn");
-        const errorOutput = document.getElementById("error");
+        const endingValueInput =
+            document.getElementById("endingValue");
+
+        const yearsInput =
+            document.getElementById("years");
+
+        const cagrOutput =
+            document.getElementById("cagr");
+
+        const totalReturnOutput =
+            document.getElementById("totalReturn");
+
+        const errorOutput =
+            document.getElementById("error");
 
         const percentFormatter = new Intl.NumberFormat("en-US", {
             style: "percent",
@@ -430,9 +465,14 @@
         });
 
         function calculate() {
-            const startingValue = Number(startingValueInput.value);
-            const endingValue = Number(endingValueInput.value);
-            const years = Number(yearsInput.value);
+            const startingValue =
+                Number(startingValueInput.value);
+
+            const endingValue =
+                Number(endingValueInput.value);
+
+            const years =
+                Number(yearsInput.value);
 
             errorOutput.textContent = "";
 
@@ -446,13 +486,21 @@
             ) {
                 cagrOutput.textContent = "—";
                 totalReturnOutput.textContent = "—";
+
                 errorOutput.textContent =
                     "Enter values greater than zero in all three fields.";
+
                 return;
             }
 
-            const totalReturn = endingValue / startingValue - 1;
-            const cagr = Math.pow(endingValue / startingValue, 1 / years) - 1;
+            const totalReturn =
+                endingValue / startingValue - 1;
+
+            const cagr =
+                Math.pow(
+                    endingValue / startingValue,
+                    1 / years
+                ) - 1;
 
             totalReturnOutput.textContent =
                 percentFormatter.format(totalReturn);
@@ -461,32 +509,68 @@
                 percentFormatter.format(cagr);
         }
 
-        [startingValueInput, endingValueInput, yearsInput]
-            .forEach(input => input.addEventListener("input", calculate));
+        [
+            startingValueInput,
+            endingValueInput,
+            yearsInput
+        ].forEach(input => {
+            input.addEventListener("input", calculate);
+        });
 
         calculate();
 
-        const menuToggle = document.querySelector(".menu-toggle");
-        const navigationLinks = document.querySelector(".nav-links");
-        
-        menuToggle.addEventListener("click", () => {
-            const isOpen = navigationLinks.classList.toggle("is-open");
-        
-            menuToggle.setAttribute("aria-expanded", String(isOpen));
+        const menuToggle =
+            document.querySelector(".menu-toggle");
+
+        const navigationLinks =
+            document.querySelector(".nav-links");
+
+        function closeMenu() {
+            navigationLinks.classList.remove("is-open");
+            menuToggle.setAttribute("aria-expanded", "false");
             menuToggle.setAttribute(
                 "aria-label",
-                isOpen ? "Close navigation menu" : "Open navigation menu"
+                "Open navigation menu"
+            );
+        }
+
+        menuToggle.addEventListener("click", () => {
+            const isOpen =
+                navigationLinks.classList.toggle("is-open");
+
+            menuToggle.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            menuToggle.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
             );
         });
-        
+
         navigationLinks.addEventListener("click", event => {
             if (event.target.matches("a")) {
-                navigationLinks.classList.remove("is-open");
-                menuToggle.setAttribute("aria-expanded", "false");
-                menuToggle.setAttribute("aria-label", "Open navigation menu");
+                closeMenu();
             }
-        });        
-        
+        });
+
+        document.addEventListener("click", event => {
+            const clickedInsideNavigation =
+                event.target.closest(".site-nav");
+
+            if (!clickedInsideNavigation) {
+                closeMenu();
+            }
+        });
+
+        document.addEventListener("keydown", event => {
+            if (event.key === "Escape") {
+                closeMenu();
+            }
+        });
     </script>
 </body>
 </html>
