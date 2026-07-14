@@ -160,6 +160,27 @@
             .card {
                 padding: 20px;
             }
+            
+            nav {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 40px;
+            }
+            
+            nav a {
+                color: var(--text);
+                text-decoration: none;
+            }
+            
+            .nav-links {
+                display: flex;
+                gap: 24px;
+            }
+            
+            .nav-links a:hover {
+                color: var(--accent);
+            }       
         }
     </style>
 </head>
@@ -167,7 +188,18 @@
 <body>
     <main>
         <header>
+            <nav>
+                <a href="/">Sunset Guardian</a>
+                <div class="nav-links">
+                    <a href="/">Home</a>
+                    <a href="/tools/">Tools</a>
+                    <a href="/articles/">Articles</a>
+                    <a href="/about/">About</a>
+                </div>
+            </nav>
+        
             <h1>🌅 CAGR Calculator</h1>
+        
             <p class="subtitle">
                 Find an investment's compound annual growth rate and total return.
             </p>
