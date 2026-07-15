@@ -1,0 +1,237 @@
+:root {
+    color-scheme: dark;
+
+    --background: #101318;
+    --panel: #191e26;
+    --input: #11161d;
+    --border: #343b47;
+    --text: #f3f5f7;
+    --muted: #aeb6c2;
+    --accent: #ffb454;
+    --error: #ff8b8b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    min-height: 100vh;
+    margin: 0;
+
+    background: var(--background);
+    color: var(--text);
+    font-family: "Segoe UI", Arial, sans-serif;
+    line-height: 1.5;
+}
+
+button,
+input {
+    font: inherit;
+}
+
+/* Shared header */
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+
+    background: rgba(16, 19, 24, 0.96);
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(10px);
+}
+
+.site-nav {
+    width: min(1100px, calc(100% - 32px));
+    min-height: 64px;
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 24px;
+}
+
+.site-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+
+    color: var(--text);
+    font-size: 1.15rem;
+    font-weight: 700;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.site-brand:hover,
+.site-brand:focus-visible {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+.nav-links a {
+    color: var(--muted);
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links a:focus-visible,
+.nav-links a[aria-current="page"] {
+    color: var(--accent);
+}
+
+.menu-toggle {
+    display: none;
+    width: 44px;
+    height: 44px;
+    padding: 10px;
+
+    background: transparent;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.menu-toggle span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    margin: 5px 0;
+
+    background: var(--text);
+    border-radius: 2px;
+    transition:
+        transform 0.2s ease,
+        opacity 0.2s ease;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(1) {
+    transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(2) {
+    opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] span:nth-child(3) {
+    transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Shared page layout */
+
+.site-main {
+    width: min(1100px, calc(100% - 32px));
+    min-height: calc(100vh - 140px);
+    margin: 0 auto;
+    padding: 48px 0;
+}
+
+.content-narrow {
+    width: min(720px, 100%);
+    margin: 0 auto;
+}
+
+.page-heading {
+    margin-bottom: 28px;
+    text-align: center;
+}
+
+.page-heading h1 {
+    margin: 0 0 8px;
+    font-size: clamp(2rem, 6vw, 3rem);
+}
+
+.subtitle {
+    color: var(--muted);
+    font-size: 1.05rem;
+}
+
+.content-card {
+    padding: 28px;
+
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.content-card h2 {
+    margin-top: 0;
+}
+
+.content-card p:last-child {
+    margin-bottom: 0;
+}
+
+.site-footer {
+    width: min(1100px, calc(100% - 32px));
+    margin: 0 auto;
+    padding: 0 0 28px;
+
+    color: var(--muted);
+    font-size: 0.85rem;
+    text-align: center;
+}
+
+/* Mobile navigation */
+
+@media (max-width: 620px) {
+    .site-nav {
+        position: relative;
+    }
+
+    .menu-toggle {
+        display: block;
+    }
+
+    .nav-links {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        left: 0;
+        right: 0;
+
+        padding: 12px;
+
+        background: var(--panel);
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+    }
+
+    .nav-links.is-open {
+        display: grid;
+        gap: 4px;
+    }
+
+    .nav-links a {
+        padding: 12px;
+        border-radius: 7px;
+    }
+
+    .nav-links a:hover,
+    .nav-links a:focus-visible,
+    .nav-links a[aria-current="page"] {
+        background: var(--input);
+    }
+
+    .site-main {
+        padding: 28px 0;
+    }
+
+    .content-card {
+        padding: 20px;
+    }
+}
