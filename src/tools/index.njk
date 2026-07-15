@@ -1,0 +1,36 @@
+---
+layout: layouts/base.njk
+title: Tools
+description: Practical calculators and utilities from Sunset Guardian.
+navKey: tools
+---
+
+<div class="content-narrow">
+    <section class="page-heading">
+        <h1>Tools</h1>
+
+        <p class="subtitle">
+            Practical calculators and utilities.
+        </p>
+    </section>
+
+    <section class="content-card">
+        {% if collections.tools.length %}
+            {% for tool in collections.tools %}
+                <article class="tool-listing">
+                    <h2>
+                        <a href="{{ tool.url }}">
+                            {{ tool.data.title }}
+                        </a>
+                    </h2>
+
+                    <p>
+                        {{ tool.data.description }}
+                    </p>
+                </article>
+            {% endfor %}
+        {% else %}
+            <p>Tools will appear here as they are published.</p>
+        {% endif %}
+    </section>
+</div>

@@ -1,0 +1,92 @@
+---
+layout: layouts/base.njk
+title: Sunset Guardian
+description: Practical financial tools and clear explanations that make complicated numbers easier to understand.
+---
+
+<section class="home-hero">
+    <p class="eyebrow">
+        Practical tools. Clear explanations.
+    </p>
+
+    <h1>
+        Make financial numbers easier to understand.
+    </h1>
+
+    <p class="home-hero-copy">
+        Fast, straightforward calculators and guides designed
+        to turn confusing financial concepts into useful answers.
+    </p>
+
+    <div class="home-actions">
+        <a class="button button-primary" href="/tools/cagr/">
+            Try the CAGR Calculator
+        </a>
+
+        <a class="button button-secondary" href="/tools/">
+            Browse all tools
+        </a>
+    </div>
+</section>
+
+<section
+    class="featured-tool"
+    aria-labelledby="featured-tool-title"
+>
+    <div class="featured-tool-copy">
+        <p class="eyebrow">
+            Featured tool
+        </p>
+
+        <h2 id="featured-tool-title">
+            CAGR Calculator
+        </h2>
+
+        <p>
+            Calculate the constant annual growth rate that turns
+            a starting value into an ending value over a selected
+            number of years.
+        </p>
+
+        <p>
+            The calculator also shows total return, updates instantly,
+            and requires no account or login.
+        </p>
+
+        <a class="inline-link" href="/tools/cagr/">
+            Open the CAGR Calculator →
+        </a>
+    </div>
+
+    <div class="featured-result" aria-hidden="true">
+        <span>Example CAGR</span>
+        <strong>8.45%</strong>
+        <small>
+            $10,000 → $15,000 over 5 years
+        </small>
+    </div>
+</section>
+
+<section class="home-section">
+    <div class="section-heading">
+        <h2>Available tools</h2>
+
+        <p>
+            Each published tool is added here automatically.
+        </p>
+    </div>
+
+    <div class="home-tool-grid">
+        {% for tool in collections.tools %}
+            <a class="home-tool-card" href="{{ tool.url }}">
+                <h3>{{ tool.data.title }}</h3>
+
+                <p>
+                    {{ tool.data.description }}
+                </p>
+
+                <span>Open tool →</span>
+            </a>
+        {% endfor %}
+    </div>
+</section>
