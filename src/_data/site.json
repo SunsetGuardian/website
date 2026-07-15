@@ -1,0 +1,22 @@
+{
+  "name": "Sunset Guardian",
+  "url": "https://sunset-guardian.com",
+  "description": "Practical tools and clear explanations for finance, technology, and automation.",
+  "navigation": [
+    {
+      "key": "tools",
+      "label": "Tools",
+      "url": "/tools/"
+    },
+    {
+      "key": "articles",
+      "label": "Articles",
+      "url": "/articles/"
+    },
+    {
+      "key": "about",
+      "label": "About",
+      "url": "/about/"
+    }
+  ]
+}
