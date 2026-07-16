@@ -2,34 +2,38 @@
 layout: layouts/base.njk
 title: Rule of 72 Calculator
 description: Estimate how long an investment may take to double or the annual return needed to reach a doubling goal.
-tags: tools
+navKey: tools
+tags:
+  - tools
 ---
 
-<div class="content-narrow rule72-page">
-    <section class="page-heading">
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Growth estimate</p>
+
         <h1>🌅 Rule of 72 Calculator</h1>
 
-        <p class="subtitle">
-            Estimate how long an investment may take to double—or the
-            annual return needed to reach a doubling goal.
+        <p class="hero-copy">
+            Estimate how long an investment may take to double—or the annual
+            return needed to reach a doubling goal.
         </p>
     </section>
 
-    <section class="rule72-card">
-        <div class="rule72-grid">
-            <section class="rule72-panel">
+    <section class="calculator-card">
+        <div class="calculator-panel-grid">
+            <section class="calculator-panel">
                 <h2>Rate to doubling time</h2>
 
-                <p class="rule72-panel-copy">
+                <p class="calculator-panel-copy">
                     Enter an estimated annual return rate.
                 </p>
 
-                <div class="rule72-field">
+                <div class="calculator-field">
                     <label for="rule72-rate">
                         Annual return rate
                     </label>
 
-                    <div class="rule72-input-suffix">
+                    <div class="calculator-input-suffix">
                         <input
                             id="rule72-rate"
                             type="number"
@@ -44,12 +48,17 @@ tags: tools
                 </div>
 
                 <div
-                    class="rule72-result"
+                    class="calculator-result"
                     aria-live="polite"
                 >
-                    <span>Estimated time to double</span>
+                    <span class="calculator-result-label">
+                        Estimated time to double
+                    </span>
 
-                    <strong id="rule72-years-result">
+                    <strong
+                        class="calculator-result-value"
+                        id="rule72-years-result"
+                    >
                         9 years
                     </strong>
 
@@ -57,19 +66,19 @@ tags: tools
                 </div>
             </section>
 
-            <section class="rule72-panel">
+            <section class="calculator-panel">
                 <h2>Doubling goal to rate</h2>
 
-                <p class="rule72-panel-copy">
+                <p class="calculator-panel-copy">
                     Enter the desired number of years.
                 </p>
 
-                <div class="rule72-field">
+                <div class="calculator-field">
                     <label for="rule72-target-years">
                         Desired doubling time
                     </label>
 
-                    <div class="rule72-input-suffix">
+                    <div class="calculator-input-suffix calculator-input-suffix-wide">
                         <input
                             id="rule72-target-years"
                             type="number"
@@ -84,12 +93,17 @@ tags: tools
                 </div>
 
                 <div
-                    class="rule72-result"
+                    class="calculator-result"
                     aria-live="polite"
                 >
-                    <span>Estimated annual return needed</span>
+                    <span class="calculator-result-label">
+                        Estimated annual return needed
+                    </span>
 
-                    <strong id="rule72-rate-result">
+                    <strong
+                        class="calculator-result-value"
+                        id="rule72-rate-result"
+                    >
                         7.2% per year
                     </strong>
 
@@ -98,7 +112,7 @@ tags: tools
             </section>
         </div>
 
-        <div class="rule72-explanation">
+        <div class="calculator-explanation">
             <h2>What is the Rule of 72?</h2>
 
             <p>
@@ -107,8 +121,8 @@ tags: tools
                 positive annual return.
             </p>
 
-            <div class="rule72-formulas">
-                <div class="rule72-formula">
+            <div class="formula-grid">
+                <div class="formula-card">
                     <span>Estimate doubling time</span>
 
                     <code>
@@ -116,7 +130,7 @@ tags: tools
                     </code>
                 </div>
 
-                <div class="rule72-formula">
+                <div class="formula-card">
                     <span>Estimate required return</span>
 
                     <code>
@@ -133,7 +147,7 @@ tags: tools
         </div>
     </section>
 
-    <p class="rule72-disclaimer">
+    <p class="tool-disclaimer">
         For educational purposes only. Results are estimates and do not
         include taxes, fees, inflation, contributions, withdrawals, or
         changing rates of return.
