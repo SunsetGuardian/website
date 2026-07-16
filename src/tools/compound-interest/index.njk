@@ -2,22 +2,26 @@
 layout: layouts/base.njk
 title: Compound Interest Calculator
 description: Estimate how a starting balance and monthly contributions can grow over time.
-tags: tools
+navKey: tools
+tags:
+  - tools
 ---
 
-<div class="content-narrow compound-interest-page">
-    <section class="page-heading">
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Growth calculator</p>
+
         <h1>🌅 Compound Interest Calculator</h1>
 
-        <p class="subtitle">
+        <p class="hero-copy">
             Estimate how a starting balance and monthly contributions
             can grow over time.
         </p>
     </section>
 
-    <section class="compound-card">
-        <div class="compound-input-grid">
-            <div class="compound-field">
+    <section class="calculator-card">
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
                 <label for="starting-balance">
                     Starting balance
                 </label>
@@ -32,7 +36,7 @@ tags: tools
                 >
             </div>
 
-            <div class="compound-field">
+            <div class="calculator-field">
                 <label for="monthly-contribution">
                     Monthly contribution
                 </label>
@@ -47,12 +51,12 @@ tags: tools
                 >
             </div>
 
-            <div class="compound-field">
+            <div class="calculator-field">
                 <label for="annual-rate">
                     Annual interest rate
                 </label>
 
-                <div class="compound-input-suffix">
+                <div class="calculator-input-suffix">
                     <input
                         id="annual-rate"
                         type="number"
@@ -66,7 +70,7 @@ tags: tools
                 </div>
             </div>
 
-            <div class="compound-field">
+            <div class="calculator-field">
                 <label for="investment-years">
                     Years
                 </label>
@@ -83,26 +87,50 @@ tags: tools
         </div>
 
         <div
-            class="compound-results"
+            class="calculator-results"
             aria-live="polite"
         >
-            <div class="compound-result">
-                <span>Ending balance</span>
-                <strong id="ending-balance">$0</strong>
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Ending balance
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="ending-balance"
+                >
+                    $0
+                </strong>
             </div>
 
-            <div class="compound-result">
-                <span>Total contributed</span>
-                <strong id="total-contributed">$0</strong>
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Total contributed
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="total-contributed"
+                >
+                    $0
+                </strong>
             </div>
 
-            <div class="compound-result">
-                <span>Interest earned</span>
-                <strong id="interest-earned">$0</strong>
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Interest earned
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="interest-earned"
+                >
+                    $0
+                </strong>
             </div>
         </div>
 
-        <div class="compound-explanation">
+        <div class="calculator-explanation">
             <h2>How this calculator works</h2>
 
             <p>
@@ -117,7 +145,7 @@ tags: tools
         </div>
     </section>
 
-    <p class="compound-disclaimer">
+    <p class="tool-disclaimer">
         For educational purposes only. Results are estimates and do not
         include taxes, fees, inflation, or changing rates of return.
     </p>
