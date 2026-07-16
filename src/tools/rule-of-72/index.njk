@@ -1,0 +1,226 @@
+---
+layout: layouts/base.njk
+title: Rule of 72 Calculator
+description: Estimate how long an investment may take to double or the annual return needed to reach a doubling goal.
+tags: tools
+---
+
+<div class="content-narrow rule72-page">
+    <section class="page-heading">
+        <h1>🌅 Rule of 72 Calculator</h1>
+
+        <p class="subtitle">
+            Estimate how long an investment may take to double—or the
+            annual return needed to reach a doubling goal.
+        </p>
+    </section>
+
+    <section class="rule72-card">
+        <div class="rule72-grid">
+            <section class="rule72-panel">
+                <h2>Rate to doubling time</h2>
+
+                <p class="rule72-panel-copy">
+                    Enter an estimated annual return rate.
+                </p>
+
+                <div class="rule72-field">
+                    <label for="rule72-rate">
+                        Annual return rate
+                    </label>
+
+                    <div class="rule72-input-suffix">
+                        <input
+                            id="rule72-rate"
+                            type="number"
+                            min="0.01"
+                            step="0.1"
+                            value="8"
+                            inputmode="decimal"
+                        >
+
+                        <span aria-hidden="true">%</span>
+                    </div>
+                </div>
+
+                <div
+                    class="rule72-result"
+                    aria-live="polite"
+                >
+                    <span>Estimated time to double</span>
+
+                    <strong id="rule72-years-result">
+                        9 years
+                    </strong>
+
+                    <small>72 ÷ annual return rate</small>
+                </div>
+            </section>
+
+            <section class="rule72-panel">
+                <h2>Doubling goal to rate</h2>
+
+                <p class="rule72-panel-copy">
+                    Enter the desired number of years.
+                </p>
+
+                <div class="rule72-field">
+                    <label for="rule72-target-years">
+                        Desired doubling time
+                    </label>
+
+                    <div class="rule72-input-suffix">
+                        <input
+                            id="rule72-target-years"
+                            type="number"
+                            min="0.1"
+                            step="0.1"
+                            value="10"
+                            inputmode="decimal"
+                        >
+
+                        <span aria-hidden="true">years</span>
+                    </div>
+                </div>
+
+                <div
+                    class="rule72-result"
+                    aria-live="polite"
+                >
+                    <span>Estimated annual return needed</span>
+
+                    <strong id="rule72-rate-result">
+                        7.2% per year
+                    </strong>
+
+                    <small>72 ÷ desired doubling time</small>
+                </div>
+            </section>
+        </div>
+
+        <div class="rule72-explanation">
+            <h2>What is the Rule of 72?</h2>
+
+            <p>
+                The Rule of 72 is a quick way to estimate how long an
+                investment may take to double when it earns a steady,
+                positive annual return.
+            </p>
+
+            <div class="rule72-formulas">
+                <div class="rule72-formula">
+                    <span>Estimate doubling time</span>
+
+                    <code>
+                        Years ≈ 72 ÷ annual rate
+                    </code>
+                </div>
+
+                <div class="rule72-formula">
+                    <span>Estimate required return</span>
+
+                    <code>
+                        Annual rate ≈ 72 ÷ years
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                This is an approximation rather than a prediction. It
+                assumes steady compounding and does not include additional
+                deposits or withdrawals.
+            </p>
+        </div>
+    </section>
+
+    <p class="rule72-disclaimer">
+        For educational purposes only. Results are estimates and do not
+        include taxes, fees, inflation, contributions, withdrawals, or
+        changing rates of return.
+    </p>
+</div>
+
+<script>
+    (() => {
+        const rateInput =
+            document.querySelector("#rule72-rate");
+
+        const targetYearsInput =
+            document.querySelector("#rule72-target-years");
+
+        const yearsResult =
+            document.querySelector("#rule72-years-result");
+
+        const rateResult =
+            document.querySelector("#rule72-rate-result");
+
+        const numberFormatter = new Intl.NumberFormat(
+            "en-US",
+            {
+                maximumFractionDigits: 2
+            }
+        );
+
+        function readPositiveNumber(input) {
+            const value = Number(input.value);
+
+            if (!Number.isFinite(value) || value <= 0) {
+                return null;
+            }
+
+            return value;
+        }
+
+        function updateDoublingTime() {
+            const annualRate =
+                readPositiveNumber(rateInput);
+
+            if (annualRate === null) {
+                yearsResult.textContent =
+                    "Enter a rate above 0%";
+
+                return;
+            }
+
+            const estimatedYears = 72 / annualRate;
+
+            const unit =
+                Math.abs(estimatedYears - 1) < 0.005
+                    ? "year"
+                    : "years";
+
+            yearsResult.textContent =
+                `${numberFormatter.format(estimatedYears)} ${unit}`;
+        }
+
+        function updateRequiredRate() {
+            const targetYears =
+                readPositiveNumber(targetYearsInput);
+
+            if (targetYears === null) {
+                rateResult.textContent =
+                    "Enter a time above 0 years";
+
+                return;
+            }
+
+            const requiredRate = 72 / targetYears;
+
+            rateResult.textContent =
+                `${numberFormatter.format(requiredRate)}% per year`;
+        }
+
+        rateInput.addEventListener(
+            "input",
+            updateDoublingTime
+        );
+
+        targetYearsInput.addEventListener(
+            "input",
+            updateRequiredRate
+        );
+
+        updateDoublingTime();
+        updateRequiredRate();
+    })();
+</script>
