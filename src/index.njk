@@ -4,7 +4,7 @@ title: Sunset Guardian
 description: Practical financial tools and clear explanations that make complicated numbers easier to understand.
 ---
 
-<section class="home-hero">
+<section class="page-hero">
     <p class="eyebrow">
         Practical tools. Clear explanations.
     </p>
@@ -13,12 +13,12 @@ description: Practical financial tools and clear explanations that make complica
         Make financial numbers easier to understand.
     </h1>
 
-    <p class="home-hero-copy">
+    <p class="hero-copy">
         Fast, straightforward calculators and guides designed
         to turn confusing financial concepts into useful answers.
     </p>
 
-    <div class="home-actions">
+    <div class="actions">
         <a class="button button-primary" href="/tools/cagr/">
             Try the CAGR Calculator
         </a>
@@ -30,10 +30,10 @@ description: Practical financial tools and clear explanations that make complica
 </section>
 
 <section
-    class="featured-tool"
+    class="feature-card"
     aria-labelledby="featured-tool-title"
 >
-    <div class="featured-tool-copy">
+    <div class="feature-card-copy">
         <p class="eyebrow">
             Featured tool
         </p>
@@ -58,7 +58,7 @@ description: Practical financial tools and clear explanations that make complica
         </a>
     </div>
 
-    <div class="featured-result" aria-hidden="true">
+    <div class="metric-card" aria-hidden="true">
         <span>Example CAGR</span>
         <strong>8.45%</strong>
         <small>
@@ -67,7 +67,7 @@ description: Practical financial tools and clear explanations that make complica
     </div>
 </section>
 
-<section class="home-section">
+<section class="section">
     <div class="section-heading">
         <h2>Available tools</h2>
 
@@ -76,9 +76,9 @@ description: Practical financial tools and clear explanations that make complica
         </p>
     </div>
 
-    <div class="home-tool-grid">
+    <div class="card-grid">
         {% for tool in collections.tools %}
-            <a class="home-tool-card" href="{{ tool.url }}">
+            <a class="link-card" href="{{ tool.url }}">
                 <h3>{{ tool.data.title }}</h3>
 
                 <p>
