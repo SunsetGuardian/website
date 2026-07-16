@@ -462,3 +462,138 @@ input {
         padding: 20px;
     }
 }
+
+/* Compound Interest Calculator */
+
+.compound-card {
+    padding: 28px;
+
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    box-shadow: 0 12px 32px rgba(0, 0, 0, 0.22);
+}
+
+.compound-input-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+}
+
+.compound-field {
+    display: grid;
+    gap: 8px;
+}
+
+.compound-field label {
+    font-weight: 700;
+}
+
+.compound-field input {
+    width: 100%;
+    min-height: 52px;
+    padding: 12px 16px;
+
+    color: var(--text);
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.compound-field input:focus {
+    border-color: var(--accent);
+    outline: 2px solid transparent;
+    box-shadow: 0 0 0 3px rgba(255, 180, 84, 0.18);
+}
+
+.compound-input-suffix {
+    position: relative;
+}
+
+.compound-input-suffix input {
+    padding-right: 48px;
+}
+
+.compound-input-suffix span {
+    position: absolute;
+    top: 50%;
+    right: 16px;
+
+    color: var(--muted);
+    font-weight: 700;
+    transform: translateY(-50%);
+    pointer-events: none;
+}
+
+.compound-results {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 14px;
+    margin-top: 28px;
+}
+
+.compound-result {
+    display: grid;
+    min-height: 140px;
+    padding: 20px;
+
+    place-content: center;
+    gap: 8px;
+
+    text-align: center;
+    background: var(--input);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.compound-result span {
+    color: var(--muted);
+}
+
+.compound-result strong {
+    color: var(--accent);
+    font-size: clamp(1.7rem, 4vw, 2.35rem);
+    line-height: 1.1;
+}
+
+.compound-explanation {
+    margin-top: 28px;
+    padding-top: 26px;
+
+    border-top: 1px solid var(--border);
+}
+
+.compound-explanation h2 {
+    margin-top: 0;
+}
+
+.compound-explanation p {
+    color: var(--muted);
+}
+
+.compound-explanation p:last-child {
+    margin-bottom: 0;
+}
+
+.compound-disclaimer {
+    margin: 24px auto 0;
+
+    color: var(--muted);
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@media (max-width: 760px) {
+    .compound-card {
+        padding: 20px;
+    }
+
+    .compound-input-grid,
+    .compound-results {
+        grid-template-columns: 1fr;
+    }
+
+    .compound-result {
+        min-height: 120px;
+    }
+}
