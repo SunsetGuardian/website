@@ -1,0 +1,237 @@
+---
+layout: layouts/base.njk
+title: Compound Interest Calculator
+description: Estimate how a starting balance and monthly contributions can grow over time.
+tags: tools
+---
+
+<div class="content-narrow compound-interest-page">
+    <section class="page-heading">
+        <h1>🌅 Compound Interest Calculator</h1>
+
+        <p class="subtitle">
+            Estimate how a starting balance and monthly contributions
+            can grow over time.
+        </p>
+    </section>
+
+    <section class="compound-card">
+        <div class="compound-input-grid">
+            <div class="compound-field">
+                <label for="starting-balance">
+                    Starting balance
+                </label>
+
+                <input
+                    id="starting-balance"
+                    type="number"
+                    min="0"
+                    step="100"
+                    value="10000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="compound-field">
+                <label for="monthly-contribution">
+                    Monthly contribution
+                </label>
+
+                <input
+                    id="monthly-contribution"
+                    type="number"
+                    min="0"
+                    step="25"
+                    value="250"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="compound-field">
+                <label for="annual-rate">
+                    Annual interest rate
+                </label>
+
+                <div class="compound-input-suffix">
+                    <input
+                        id="annual-rate"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="7"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="compound-field">
+                <label for="investment-years">
+                    Years
+                </label>
+
+                <input
+                    id="investment-years"
+                    type="number"
+                    min="1"
+                    step="1"
+                    value="20"
+                    inputmode="numeric"
+                >
+            </div>
+        </div>
+
+        <div
+            class="compound-results"
+            aria-live="polite"
+        >
+            <div class="compound-result">
+                <span>Ending balance</span>
+                <strong id="ending-balance">$0</strong>
+            </div>
+
+            <div class="compound-result">
+                <span>Total contributed</span>
+                <strong id="total-contributed">$0</strong>
+            </div>
+
+            <div class="compound-result">
+                <span>Interest earned</span>
+                <strong id="interest-earned">$0</strong>
+            </div>
+        </div>
+
+        <div class="compound-explanation">
+            <h2>How this calculator works</h2>
+
+            <p>
+                The calculation assumes monthly compounding and
+                contributions made at the end of each month.
+            </p>
+
+            <p>
+                The estimated ending balance includes the growth of the
+                starting balance plus the growth of each monthly contribution.
+            </p>
+        </div>
+    </section>
+
+    <p class="compound-disclaimer">
+        For educational purposes only. Results are estimates and do not
+        include taxes, fees, inflation, or changing rates of return.
+    </p>
+</div>
+
+<script>
+    (() => {
+        const startingBalanceInput =
+            document.querySelector("#starting-balance");
+
+        const monthlyContributionInput =
+            document.querySelector("#monthly-contribution");
+
+        const annualRateInput =
+            document.querySelector("#annual-rate");
+
+        const yearsInput =
+            document.querySelector("#investment-years");
+
+        const endingBalanceOutput =
+            document.querySelector("#ending-balance");
+
+        const totalContributedOutput =
+            document.querySelector("#total-contributed");
+
+        const interestEarnedOutput =
+            document.querySelector("#interest-earned");
+
+        const currencyFormatter = new Intl.NumberFormat(
+            "en-US",
+            {
+                style: "currency",
+                currency: "USD",
+                maximumFractionDigits: 0
+            }
+        );
+
+        function readNonnegativeNumber(input) {
+            const value = Number(input.value);
+
+            if (!Number.isFinite(value)) {
+                return 0;
+            }
+
+            return Math.max(0, value);
+        }
+
+        function calculateCompoundInterest() {
+            const startingBalance =
+                readNonnegativeNumber(startingBalanceInput);
+
+            const monthlyContribution =
+                readNonnegativeNumber(monthlyContributionInput);
+
+            const annualRate =
+                readNonnegativeNumber(annualRateInput);
+
+            const years =
+                readNonnegativeNumber(yearsInput);
+
+            const months = Math.round(years * 12);
+            const monthlyRate = annualRate / 100 / 12;
+
+            let futureStartingBalance;
+            let futureContributions;
+
+            if (monthlyRate === 0) {
+                futureStartingBalance = startingBalance;
+                futureContributions =
+                    monthlyContribution * months;
+            } else {
+                const growthFactor =
+                    Math.pow(1 + monthlyRate, months);
+
+                futureStartingBalance =
+                    startingBalance * growthFactor;
+
+                futureContributions =
+                    monthlyContribution *
+                    ((growthFactor - 1) / monthlyRate);
+            }
+
+            const endingBalance =
+                futureStartingBalance + futureContributions;
+
+            const totalContributed =
+                startingBalance +
+                (monthlyContribution * months);
+
+            const interestEarned =
+                endingBalance - totalContributed;
+
+            endingBalanceOutput.textContent =
+                currencyFormatter.format(endingBalance);
+
+            totalContributedOutput.textContent =
+                currencyFormatter.format(totalContributed);
+
+            interestEarnedOutput.textContent =
+                currencyFormatter.format(interestEarned);
+        }
+
+        [
+            startingBalanceInput,
+            monthlyContributionInput,
+            annualRateInput,
+            yearsInput
+        ].forEach((input) => {
+            input.addEventListener(
+                "input",
+                calculateCompoundInterest
+            );
+        });
+
+        calculateCompoundInterest();
+    })();
+</script>
