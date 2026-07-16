@@ -5,32 +5,36 @@ description: Practical calculators and utilities from Sunset Guardian.
 navKey: tools
 ---
 
-<div class="content-narrow">
-    <section class="page-heading">
-        <h1>Tools</h1>
+<section class="page-hero page-hero-compact">
+    <p class="eyebrow">Tools</p>
 
-        <p class="subtitle">
-            Practical calculators and utilities.
-        </p>
-    </section>
+    <h1>Financial calculators without the clutter.</h1>
 
-    <section class="content-card">
-        {% if collections.tools.length %}
+    <p class="hero-copy">
+        Fast, straightforward tools that update instantly and require no
+        account or login.
+    </p>
+</section>
+
+<section class="section section-first">
+    {% if collections.tools.length %}
+        <div class="card-grid">
             {% for tool in collections.tools %}
-                <article class="tool-listing">
-                    <h2>
-                        <a href="{{ tool.url }}">
-                            {{ tool.data.title }}
-                        </a>
-                    </h2>
+                <a class="link-card" href="{{ tool.url }}">
+                    <h2>{{ tool.data.title }}</h2>
 
                     <p>
                         {{ tool.data.description }}
                     </p>
-                </article>
+
+                    <span>Open tool →</span>
+                </a>
             {% endfor %}
-        {% else %}
-            <p>Tools will appear here as they are published.</p>
-        {% endif %}
-    </section>
-</div>
+        </div>
+    {% else %}
+        <div class="content-card empty-state">
+            <h2>Tools are coming soon</h2>
+            <p>Published calculators will appear here automatically.</p>
+        </div>
+    {% endif %}
+</section>
