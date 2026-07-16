@@ -11,18 +11,39 @@ navKey: articles
     <h1>Clear explanations for practical decisions.</h1>
 
     <p class="hero-copy">
-        Guides will connect related tools, explain what the numbers mean,
+        Guides connect related tools, explain what the numbers mean,
         and show when each calculator is useful.
     </p>
 </section>
 
 <section class="section section-first">
-    <div class="content-card empty-state">
-        <h2>Articles are coming next</h2>
+    {% if collections.articles.length %}
+        <div class="card-grid">
+            {% for article in collections.articles | reverse %}
+                <a class="link-card" href="{{ article.url }}">
+                    <h2>{{ article.data.listingTitle or article.data.title }}</h2>
 
-        <p>
-            The first guide will compare CAGR, compound interest, and the
-            Rule of 72 and link directly to all three calculators.
-        </p>
-    </div>
+                    <p>
+                        {{ article.data.description }}
+                    </p>
+
+                    {% if article.data.displayDate %}
+                        <small class="card-meta">
+                            Published {{ article.data.displayDate }}
+                        </small>
+                    {% endif %}
+
+                    <span>Read article →</span>
+                </a>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="content-card empty-state">
+            <h2>Articles are coming soon</h2>
+
+            <p>
+                New guides will appear here automatically when they are published.
+            </p>
+        </div>
+    {% endif %}
 </section>
