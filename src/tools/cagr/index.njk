@@ -5,17 +5,17 @@ description: Calculate compound annual growth rate and total investment return.
 navKey: tools
 tags:
   - tools
-stylesheets:
-  - /assets/tools/cagr.css
 scripts:
   - /assets/tools/cagr.js
 ---
 
-<div class="content-narrow">
-    <section class="page-heading">
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Growth calculator</p>
+
         <h1>🌅 CAGR Calculator</h1>
 
-        <p class="subtitle">
+        <p class="hero-copy">
             Find an investment's compound annual growth rate
             and total return.
         </p>
@@ -26,8 +26,8 @@ scripts:
         data-cagr-calculator
         aria-label="CAGR calculator"
     >
-        <div class="calculator-inputs">
-            <div>
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
                 <label for="startingValue">
                     Starting value
                 </label>
@@ -42,7 +42,7 @@ scripts:
                 >
             </div>
 
-            <div>
+            <div class="calculator-field">
                 <label for="endingValue">
                     Ending value
                 </label>
@@ -57,7 +57,7 @@ scripts:
                 >
             </div>
 
-            <div>
+            <div class="calculator-field">
                 <label for="years">
                     Years held
                 </label>
@@ -88,12 +88,12 @@ scripts:
                     CAGR
                 </span>
 
-                <span
+                <strong
                     class="calculator-result-value"
                     id="cagr"
                 >
                     —
-                </span>
+                </strong>
             </div>
 
             <div class="calculator-result">
@@ -101,12 +101,12 @@ scripts:
                     Total return
                 </span>
 
-                <span
+                <strong
                     class="calculator-result-value"
                     id="totalReturn"
                 >
                     —
-                </span>
+                </strong>
             </div>
         </div>
 
@@ -114,22 +114,25 @@ scripts:
             <h2>What is CAGR?</h2>
 
             <p>
-                Compound annual growth rate shows the constant
-                yearly rate that would turn the starting value
-                into the ending value over the selected period.
+                Compound annual growth rate shows the constant yearly rate
+                that would turn the starting value into the ending value over
+                the selected period.
             </p>
 
-            <p>
-                Formula:
-                <code>
-                    (Ending value ÷ Starting value)^(1 ÷ Years) − 1
-                </code>
-            </p>
+            <div class="formula-grid formula-grid-single">
+                <div class="formula-card">
+                    <span>Formula</span>
+
+                    <code>
+                        (Ending value ÷ Starting value)^(1 ÷ Years) − 1
+                    </code>
+                </div>
+            </div>
         </div>
     </section>
 
     <p class="tool-disclaimer">
-        For educational purposes only. Results do not include
-        deposits, withdrawals, taxes, fees, or inflation.
+        For educational purposes only. Results do not include deposits,
+        withdrawals, taxes, fees, or inflation.
     </p>
 </div>
