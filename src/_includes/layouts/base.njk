@@ -52,7 +52,15 @@
     <header class="site-header">
         <nav class="site-nav" aria-label="Main navigation">
             <a class="site-brand" href="/">
-                <span aria-hidden="true">🌅</span>
+                <img
+                    class="site-logo"
+                    src="/assets/favicon.svg"
+                    alt=""
+                    width="28"
+                    height="28"
+                    aria-hidden="true"
+                >
+
                 <span>{{ site.name }}</span>
             </a>
 
@@ -88,8 +96,17 @@
     </main>
 
     <footer class="site-footer">
-        <p>
-            🌅 {{ site.name }}
+        <p class="site-footer-brand">
+            <img
+                class="site-logo site-logo-small"
+                src="/assets/favicon.svg"
+                alt=""
+                width="18"
+                height="18"
+                aria-hidden="true"
+            >
+
+            <span>{{ site.name }}</span>
         </p>
 
         <p>
