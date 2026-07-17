@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+    <defs>
+        <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#6f3d86"></stop>
+            <stop offset="48%" stop-color="#e96542"></stop>
+            <stop offset="100%" stop-color="#ffb454"></stop>
+        </linearGradient>
+
+        <linearGradient id="mountains" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#452c4d"></stop>
+            <stop offset="100%" stop-color="#191e26"></stop>
+        </linearGradient>
+    </defs>
+
+    <rect width="512" height="512" rx="76" fill="#101318"></rect>
+
+    <rect x="28" y="28" width="456" height="456" rx="58" fill="url(#sky)"></rect>
+
+    <g stroke="#ffd36a" stroke-width="14" stroke-linecap="round" opacity="0.9">
+        <path d="M256 88v54"></path>
+        <path d="M148 126l38 42"></path>
+        <path d="M364 126l-38 42"></path>
+        <path d="M94 222h58"></path>
+        <path d="M418 222h-58"></path>
+    </g>
+
+    <circle cx="256" cy="270" r="92" fill="#ffd36a"></circle>
+
+    <path d="
+            M28 354
+            L116 264
+            L177 322
+            L270 218
+            L350 302
+            L404 252
+            L484 338
+            V484
+            H28
+            Z
+        " fill="url(#mountains)"></path>
+
+    <path d="
+            M28 394
+            L108 330
+            L167 370
+            L237 304
+            L302 362
+            L375 314
+            L484 392
+            V484
+            H28
+            Z
+        " fill="#101318" opacity="0.72"></path>
+</svg>
