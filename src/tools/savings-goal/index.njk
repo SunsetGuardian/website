@@ -1,0 +1,208 @@
+---
+layout: layouts/base.njk
+title: Savings Goal Calculator
+description: Estimate the monthly contribution needed to reach a future savings goal based on current savings, time, and expected investment return.
+navKey: tools
+tags: tools
+scripts:
+  - /assets/tools/savings-goal.js
+---
+
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Planning ahead</p>
+
+        <h1>Savings Goal Calculator</h1>
+
+        <p class="hero-copy">
+            Estimate how much you may need to contribute each month
+            to reach a future savings goal.
+        </p>
+    </section>
+
+    <section
+        class="calculator-card"
+        data-savings-goal-calculator
+        aria-label="Savings goal calculator"
+    >
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
+                <label for="savingsGoal">
+                    Future savings goal
+                </label>
+
+                <input
+                    id="savingsGoal"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    value="100000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="currentSavings">
+                    Current savings
+                </label>
+
+                <input
+                    id="currentSavings"
+                    type="number"
+                    min="0"
+                    step="any"
+                    value="10000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="savingsReturn">
+                    Expected annual return after fees
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="savingsReturn"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.01"
+                        value="5"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="savingsYears">
+                    Number of years
+                </label>
+
+                <input
+                    id="savingsYears"
+                    type="number"
+                    min="1"
+                    max="100"
+                    step="1"
+                    value="10"
+                    inputmode="numeric"
+                >
+            </div>
+        </div>
+
+        <p
+            class="calculator-error"
+            id="savingsGoalError"
+            role="alert"
+        ></p>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Monthly contribution needed
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="monthlySavingsNeeded"
+                >
+                    —
+                </strong>
+
+                <small id="monthlySavingsDescription">
+                    Estimated contribution at the end of each month
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Total future contributions
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="totalFutureContributions"
+                >
+                    —
+                </strong>
+
+                <small>
+                    New money added after today
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Estimated investment growth
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="estimatedSavingsGrowth"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Portion of the goal supplied by estimated returns
+                </small>
+            </div>
+        </div>
+
+        <div class="calculator-explanation">
+            <h2>How this savings goal calculator works</h2>
+
+            <p>
+                The calculator first estimates how much the current savings
+                may grow. It then calculates the monthly contribution needed
+                to cover the remaining amount by the end of the selected
+                period.
+            </p>
+
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <span>Projected current savings</span>
+
+                    <code>
+                        Current savings × (1 + monthly rate)^months
+                    </code>
+                </div>
+
+                <div class="formula-card">
+                    <span>Monthly contribution needed</span>
+
+                    <code>
+                        Remaining goal ÷ contribution growth factor
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                Monthly contributions are assumed to be added at the end
+                of each month. The return should represent the expected
+                annual return after investment fees.
+            </p>
+
+            <p>
+                Enter the goal in future dollars. The
+                <a href="/tools/inflation/">Inflation Calculator</a>
+                can help estimate the future cost of something priced today.
+                The
+                <a href="/tools/investment-fee/">Investment Fee Calculator</a>
+                can help illustrate how fees may affect long-term returns.
+            </p>
+        </div>
+    </section>
+
+    <p class="tool-disclaimer">
+        For educational purposes only. Results are estimates and assume
+        a constant return and regular end-of-month contributions. Actual
+        returns, inflation, fees, taxes, and contribution timing may vary.
+    </p>
+</div>
