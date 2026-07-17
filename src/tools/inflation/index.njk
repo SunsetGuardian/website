@@ -1,0 +1,182 @@
+---
+layout: layouts/base.njk
+title: Inflation Calculator
+description: Estimate how inflation may affect future prices and the purchasing power of money over time.
+navKey: tools
+tags: tools
+scripts:
+  - /assets/tools/inflation.js
+---
+
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Purchasing power</p>
+
+        <h1>Inflation Calculator</h1>
+
+        <p class="hero-copy">
+            Estimate how inflation may change future prices
+            and reduce the purchasing power of money over time.
+        </p>
+    </section>
+
+    <section
+        class="calculator-card"
+        data-inflation-calculator
+        aria-label="Inflation calculator"
+    >
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
+                <label for="currentAmount">
+                    Amount today
+                </label>
+
+                <input
+                    id="currentAmount"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    value="10000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="inflationRate">
+                    Annual inflation rate
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="inflationRate"
+                        type="number"
+                        min="0"
+                        step="0.01"
+                        value="3"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="inflationYears">
+                    Number of years
+                </label>
+
+                <input
+                    id="inflationYears"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    value="20"
+                    inputmode="decimal"
+                >
+            </div>
+        </div>
+
+        <p
+            class="calculator-error"
+            id="inflationError"
+            role="alert"
+        ></p>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Future equivalent cost
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="futureCost"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Future amount needed to buy the same thing
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Future purchasing power
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="purchasingPower"
+                >
+                    —
+                </strong>
+
+                <small>
+                    What the original amount may buy later
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Cumulative inflation
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="cumulativeInflation"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Total estimated price increase
+                </small>
+            </div>
+        </div>
+
+        <div class="calculator-explanation">
+            <h2>How this inflation calculator works</h2>
+
+            <p>
+                The calculator applies the same annual inflation rate
+                throughout the selected period. Actual inflation changes
+                from year to year, sometimes politely and sometimes with
+                all the subtlety of a grocery receipt.
+            </p>
+
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <span>Future equivalent cost</span>
+
+                    <code>
+                        Amount × (1 + inflation rate)^years
+                    </code>
+                </div>
+
+                <div class="formula-card">
+                    <span>Future purchasing power</span>
+
+                    <code>
+                        Amount ÷ (1 + inflation rate)^years
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                Future equivalent cost estimates how many dollars may be
+                needed later to purchase what the entered amount buys today.
+                Future purchasing power estimates what the same unchanged
+                dollar amount may be worth in today's terms.
+            </p>
+        </div>
+    </section>
+
+    <p class="tool-disclaimer">
+        For educational purposes only. Results are estimates and assume
+        a constant inflation rate. Actual prices and inflation rates vary.
+    </p>
+</div>
