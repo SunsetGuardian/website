@@ -24,7 +24,7 @@
     </script>
 
     <title>
-        {%- if title == site.name -%}
+        {%- if not title or title == site.name -%}
             {{ site.name }}
         {%- else -%}
             {{ title }} | {{ site.name }}
@@ -37,6 +37,86 @@
     >
 
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
+
+    <!-- Open Graph link-preview metadata -->
+    <meta property="og:locale" content="en_US">
+
+    <meta
+        property="og:type"
+        content="{% if pageType == 'article' %}article{% else %}website{% endif %}"
+    >
+
+    <meta
+        property="og:title"
+        content="{% if not title or title == site.name %}{{ site.name }}{% else %}{{ title }} | {{ site.name }}{% endif %}"
+    >
+
+    <meta
+        property="og:description"
+        content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
+    >
+
+    <meta
+        property="og:url"
+        content="{{ site.url }}{{ page.url }}"
+    >
+
+    <meta
+        property="og:site_name"
+        content="{{ site.name }}"
+    >
+
+    <meta
+        property="og:image"
+        content="{{ site.url }}{% if socialImage %}{{ socialImage }}{% else %}/assets/sunset-guardian-social-card.png{% endif %}"
+    >
+
+    <meta
+        property="og:image:type"
+        content="image/png"
+    >
+
+    <meta
+        property="og:image:width"
+        content="1200"
+    >
+
+    <meta
+        property="og:image:height"
+        content="630"
+    >
+
+    <meta
+        property="og:image:alt"
+        content="{% if socialImageAlt %}{{ socialImageAlt }}{% else %}Sunset Guardian mountain sunset logo with the words Practical tools. Clear explanations.{% endif %}"
+    >
+
+    <!-- X and other large-card preview metadata -->
+    <meta
+        name="twitter:card"
+        content="summary_large_image"
+    >
+
+    <meta
+        name="twitter:title"
+        content="{% if not title or title == site.name %}{{ site.name }}{% else %}{{ title }} | {{ site.name }}{% endif %}"
+    >
+
+    <meta
+        name="twitter:description"
+        content="{% if description %}{{ description }}{% else %}{{ site.description }}{% endif %}"
+    >
+
+    <meta
+        name="twitter:image"
+        content="{{ site.url }}{% if socialImage %}{{ socialImage }}{% else %}/assets/sunset-guardian-social-card.png{% endif %}"
+    >
+
+    <meta
+        name="twitter:image:alt"
+        content="{% if socialImageAlt %}{{ socialImageAlt }}{% else %}Sunset Guardian mountain sunset logo with the words Practical tools. Clear explanations.{% endif %}"
+    >
+
     <link rel="stylesheet" href="/assets/site.css">
 
     <script src="/assets/site.js" defer></script>
