@@ -5,13 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-ZYKV3XW7SV"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
+    <script
+        async
+        src="https://www.googletagmanager.com/gtag/js?id=G-ZYKV3XW7SV"
+    ></script>
 
-      gtag('config', 'G-ZYKV3XW7SV');
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag("js", new Date());
+        gtag("config", "G-ZYKV3XW7SV");
     </script>
 
     <title>
@@ -29,6 +36,7 @@
 
     <link rel="canonical" href="{{ site.url }}{{ page.url }}">
     <link rel="stylesheet" href="/assets/site.css">
+
     <script src="/assets/site.js" defer></script>
 
     {% if scripts %}
@@ -78,7 +86,21 @@
     </main>
 
     <footer class="site-footer">
-        <p>🌅 {{ site.name }}</p>
+        <p>
+            🌅 {{ site.name }}
+        </p>
+
+        <p>
+            <a class="inline-link" href="/privacy/">
+                Privacy Policy
+            </a>
+
+            <span aria-hidden="true"> · </span>
+
+            <a class="inline-link" href="/disclaimer/">
+                Financial Disclaimer
+            </a>
+        </p>
     </footer>
 </body>
 </html>
