@@ -146,8 +146,8 @@
                     "@type": "WebSite",
                     "@id": "{{ site.url }}/#website",
                     "url": "{{ site.url }}/",
-                    "name": {{ site.name | dump }},
-                    "description": {{ site.description | dump }},
+                    "name": {{ site.name | dump | safe }},
+                    "description": {{ site.description | dump | safe }},
                     "publisher": {
                         "@id": "{{ site.url }}/#organization"
                     }
@@ -155,9 +155,9 @@
                 {
                     "@type": "Organization",
                     "@id": "{{ site.url }}/#organization",
-                    "name": {{ site.name | dump }},
+                    "name": {{ site.name | dump | safe }},
                     "url": "{{ site.url }}/",
-                    "description": {{ site.description | dump }},
+                    "description": {{ site.description | dump | safe }},
                     "logo": {
                         "@type": "ImageObject",
                         "url": "{{ site.url }}/assets/favicon.svg",
@@ -181,8 +181,8 @@
                 "@type": "WebPage",
                 "@id": "{{ site.url }}{{ page.url }}"
             },
-            "headline": {{ (listingTitle or title) | dump }},
-            "description": {{ (description or site.description) | dump }},
+            "headline": {{ (listingTitle or title) | dump | safe }},
+            "description": {{ (description or site.description) | dump | safe }},
             "image": {
                 "@type": "ImageObject",
                 "url": "{{ site.url }}{% if socialImage %}{{ socialImage }}{% else %}/assets/sunset-guardian-social-card.png{% endif %}",
@@ -190,16 +190,16 @@
                 "width": 1200,
                 "height": 630
             },
-            "datePublished": {{ datePublished | dump }},
-            "dateModified": {{ (dateModified or datePublished) | dump }},
+            "datePublished": {{ datePublished | dump | safe }},
+            "dateModified": {{ (dateModified or datePublished) | dump | safe }},
             "author": {
                 "@type": "Organization",
-                "name": {{ site.name | dump }},
+                "name": {{ site.name | dump | safe }},
                 "url": "{{ site.url }}/"
             },
             "publisher": {
                 "@type": "Organization",
-                "name": {{ site.name | dump }},
+                "name": {{ site.name | dump | safe }},
                 "url": "{{ site.url }}/",
                 "logo": {
                     "@type": "ImageObject",
