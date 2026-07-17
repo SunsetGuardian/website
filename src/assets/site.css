@@ -77,6 +77,16 @@ input {
     white-space: nowrap;
 }
 
+.site-logo {
+    display: block;
+    width: 28px;
+    height: 28px;
+
+    flex: 0 0 auto;
+
+    border-radius: 6px;
+}
+
 .site-brand:hover,
 .site-brand:focus-visible {
     color: var(--accent);
@@ -154,6 +164,26 @@ input {
     color: var(--muted);
     font-size: 0.85rem;
     text-align: center;
+}
+
+.site-logo-small {
+    width: 18px;
+    height: 18px;
+
+    border-radius: 4px;
+}
+
+.site-footer-brand {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    margin: 0 0 8px;
+}
+
+.site-footer > p:last-child {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .page-hero {
