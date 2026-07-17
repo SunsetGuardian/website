@@ -1,0 +1,219 @@
+---
+layout: layouts/base.njk
+title: Investment Fee Calculator
+description: Estimate how annual investment fees may reduce long-term portfolio growth by comparing balances with and without fees.
+navKey: tools
+tags: tools
+scripts:
+  - /assets/tools/investment-fee.js
+---
+
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Cost of investing</p>
+
+        <h1>Investment Fee Calculator</h1>
+
+        <p class="hero-copy">
+            Estimate how an annual investment fee may reduce
+            the value of a portfolio over time.
+        </p>
+    </section>
+
+    <section
+        class="calculator-card"
+        data-investment-fee-calculator
+        aria-label="Investment fee calculator"
+    >
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
+                <label for="startingBalance">
+                    Starting balance
+                </label>
+
+                <input
+                    id="startingBalance"
+                    type="number"
+                    min="0"
+                    step="any"
+                    value="100000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="monthlyContribution">
+                    Monthly contribution
+                </label>
+
+                <input
+                    id="monthlyContribution"
+                    type="number"
+                    min="0"
+                    step="any"
+                    value="500"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="annualReturn">
+                    Annual return before fees
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="annualReturn"
+                        type="number"
+                        min="-99.99"
+                        step="0.01"
+                        value="7"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="annualFee">
+                    Annual investment fee
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="annualFee"
+                        type="number"
+                        min="0"
+                        max="99.99"
+                        step="0.01"
+                        value="0.25"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="investmentYears">
+                    Number of years
+                </label>
+
+                <input
+                    id="investmentYears"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    value="20"
+                    inputmode="decimal"
+                >
+            </div>
+        </div>
+
+        <p
+            class="calculator-error"
+            id="investmentFeeError"
+            role="alert"
+        ></p>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Balance without fees
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="balanceWithoutFees"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Projected balance before investment fees
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Balance after fees
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="balanceAfterFees"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Projected balance after the annual fee
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Estimated impact of fees
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="feeImpact"
+                >
+                    —
+                </strong>
+
+                <small id="feeImpactPercent">
+                    Difference between the two balances
+                </small>
+            </div>
+        </div>
+
+        <div class="calculator-explanation">
+            <h2>How investment fees affect growth</h2>
+
+            <p>
+                Investment fees may look small when shown as an annual
+                percentage, but their effect can grow over long periods.
+                Money removed for fees also loses the opportunity to earn
+                future returns.
+            </p>
+
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <span>Annual value after fees</span>
+
+                    <code>
+                        (1 + return) × (1 - fee)
+                    </code>
+                </div>
+
+                <div class="formula-card">
+                    <span>Estimated fee impact</span>
+
+                    <code>
+                        Balance without fees - balance after fees
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                The estimated impact includes both the fees deducted and
+                the growth those dollars might otherwise have earned.
+                Monthly contributions are assumed to be added at the end
+                of each month.
+            </p>
+        </div>
+    </section>
+
+    <p class="tool-disclaimer">
+        For educational purposes only. Results are estimates and assume
+        a constant return, constant fee, and regular monthly contributions.
+        Taxes, trading costs, fund performance changes, and other expenses
+        are not included.
+    </p>
+</div>
