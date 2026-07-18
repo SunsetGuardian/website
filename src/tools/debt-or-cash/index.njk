@@ -1,0 +1,585 @@
+---
+layout: layouts/base.njk
+title: Pay Off Debt or Keep Cash Calculator
+description: Compare paying down debt with keeping cash in savings, including interest avoided, after-tax savings interest, payoff timing, liquidity, and an optional investment scenario.
+navKey: tools
+tags: tools
+scripts:
+  - /assets/tools/debt-or-cash.js
+---
+
+<div class="calculator-page">
+    <section class="page-hero page-hero-compact">
+        <p class="eyebrow">Debt versus liquidity</p>
+
+        <h1>Pay Off Debt or Keep Cash Calculator</h1>
+
+        <p class="hero-copy">
+            Compare the guaranteed benefit of reducing debt with the
+            after-tax return and liquidity of keeping money in savings.
+        </p>
+    </section>
+
+    <section
+        class="calculator-card"
+        data-debt-or-cash-calculator
+        aria-label="Pay off debt or keep cash calculator"
+    >
+        <div class="calculator-input-grid">
+            <div class="calculator-field">
+                <label for="debtBalance">
+                    Current debt balance
+                </label>
+
+                <input
+                    id="debtBalance"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    value="200000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="debtApr">
+                    Debt interest rate (APR)
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="debtApr"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.001"
+                        value="6.875"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="remainingTermYears">
+                    Remaining term in years
+                </label>
+
+                <input
+                    id="remainingTermYears"
+                    type="number"
+                    min="0.01"
+                    max="100"
+                    step="any"
+                    value="25"
+                    inputmode="decimal"
+                >
+
+                <small>
+                    Used when monthly payment is blank.
+                </small>
+            </div>
+
+            <div class="calculator-field">
+                <label for="monthlyDebtPayment">
+                    Current monthly payment
+                </label>
+
+                <input
+                    id="monthlyDebtPayment"
+                    type="number"
+                    min="0.01"
+                    step="any"
+                    placeholder="Optional"
+                    inputmode="decimal"
+                >
+
+                <small>
+                    Enter principal and interest only for a mortgage.
+                </small>
+            </div>
+
+            <div class="calculator-field">
+                <label for="liquidCash">
+                    Liquid cash available
+                </label>
+
+                <input
+                    id="liquidCash"
+                    type="number"
+                    min="0"
+                    step="any"
+                    value="50000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="emergencyReserve">
+                    Emergency fund to keep
+                </label>
+
+                <input
+                    id="emergencyReserve"
+                    type="number"
+                    min="0"
+                    step="any"
+                    value="20000"
+                    inputmode="decimal"
+                >
+            </div>
+
+            <div class="calculator-field">
+                <label for="savingsApy">
+                    Savings account APY
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="savingsApy"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.001"
+                        value="4.6"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="federalTaxRate">
+                    Federal marginal tax rate
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="federalTaxRate"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="22"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="stateTaxRate">
+                    State marginal tax rate
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="stateTaxRate"
+                        type="number"
+                        min="0"
+                        max="100"
+                        step="0.1"
+                        value="0"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+            </div>
+
+            <div class="calculator-field">
+                <label for="investmentReturn">
+                    Expected investment return
+                </label>
+
+                <div class="calculator-input-suffix">
+                    <input
+                        id="investmentReturn"
+                        type="number"
+                        min="-99.99"
+                        max="100"
+                        step="0.01"
+                        placeholder="Optional"
+                        inputmode="decimal"
+                    >
+
+                    <span aria-hidden="true">%</span>
+                </div>
+
+                <small>
+                    Adds a separate, uncertain market comparison.
+                </small>
+            </div>
+        </div>
+
+        <p
+            class="calculator-error"
+            id="debtOrCashError"
+            role="alert"
+        ></p>
+
+        <div class="article-callout">
+            <p
+                id="liquidityNotice"
+                aria-live="polite"
+            >
+                Results will appear after valid values are entered.
+            </p>
+        </div>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Cash applied to debt
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="cashApplied"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Cash above the protected reserve, capped at the debt
+                balance
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Guaranteed interest avoided
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="interestAvoided"
+                >
+                    —
+                </strong>
+
+                <small id="interestAvoidedDescription">
+                    Estimated over the remaining payoff period
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    After-tax savings interest
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="savingsInterest"
+                >
+                    —
+                </strong>
+
+                <small id="savingsInterestDescription">
+                    Estimated interest earned by keeping the compared cash
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Break-even savings APY
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="breakEvenApy"
+                >
+                    —
+                </strong>
+
+                <small id="afterTaxSavingsYield">
+                    Gross APY needed for the after-tax yield to match the
+                    debt cost
+                </small>
+            </div>
+        </div>
+
+        <div class="calculator-explanation">
+            <h2>Payoff timing and monthly cash flow</h2>
+
+            <p>
+                The calculator assumes the same scheduled monthly debt
+                payment continues after a lump-sum payment. Once the debt
+                is gone, that payment becomes available for saving,
+                investing, or other spending.
+            </p>
+        </div>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    New payoff estimate
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="newPayoffDate"
+                >
+                    —
+                </strong>
+
+                <small id="currentPayoffDescription">
+                    Current payoff estimate will appear here
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Time saved
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="timeSaved"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Estimated reduction in the remaining payoff period
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Monthly cash-flow improvement
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="monthlyCashFlow"
+                >
+                    —
+                </strong>
+
+                <small>
+                    Scheduled payment available after the debt is paid
+                </small>
+            </div>
+        </div>
+
+        <div class="calculator-explanation">
+            <h2>Which strategy is ahead over time?</h2>
+
+            <p>
+                These results compare estimated net worth under two
+                strategies. One keeps the cash in savings and continues
+                the current debt payment. The other uses cash above the
+                emergency reserve to reduce debt and redirects the monthly
+                payment to savings after payoff.
+            </p>
+        </div>
+
+        <div
+            class="calculator-results"
+            aria-live="polite"
+        >
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Difference after 1 year
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="differenceOneYear"
+                >
+                    —
+                </strong>
+
+                <small id="differenceOneYearDescription">
+                    Strategy comparison
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Difference after 5 years
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="differenceFiveYears"
+                >
+                    —
+                </strong>
+
+                <small id="differenceFiveYearsDescription">
+                    Strategy comparison
+                </small>
+            </div>
+
+            <div class="calculator-result">
+                <span class="calculator-result-label">
+                    Difference after 10 years
+                </span>
+
+                <strong
+                    class="calculator-result-value"
+                    id="differenceTenYears"
+                >
+                    —
+                </strong>
+
+                <small id="differenceTenYearsDescription">
+                    Strategy comparison
+                </small>
+            </div>
+        </div>
+
+        <section
+            id="investmentComparison"
+            hidden
+        >
+            <div class="calculator-explanation">
+                <h2>Optional investment comparison</h2>
+
+                <p>
+                    This separate scenario assumes cash above the emergency
+                    reserve is invested instead of held in savings. Market
+                    returns are uncertain and may be negative, especially
+                    over shorter periods. Taxes on investment gains are not
+                    included.
+                </p>
+            </div>
+
+            <div
+                class="calculator-results"
+                aria-live="polite"
+            >
+                <div class="calculator-result">
+                    <span class="calculator-result-label">
+                        Keep cash invested
+                    </span>
+
+                    <strong
+                        class="calculator-result-value"
+                        id="keepInvestedNetWorth"
+                    >
+                        —
+                    </strong>
+
+                    <small>
+                        Estimated net worth after 10 years
+                    </small>
+                </div>
+
+                <div class="calculator-result">
+                    <span class="calculator-result-label">
+                        Pay debt first
+                    </span>
+
+                    <strong
+                        class="calculator-result-value"
+                        id="payDebtInvestedNetWorth"
+                    >
+                        —
+                    </strong>
+
+                    <small>
+                        Estimated net worth after 10 years
+                    </small>
+                </div>
+
+                <div class="calculator-result">
+                    <span class="calculator-result-label">
+                        Market scenario difference
+                    </span>
+
+                    <strong
+                        class="calculator-result-value"
+                        id="investmentDifference"
+                    >
+                        —
+                    </strong>
+
+                    <small id="investmentDifferenceDescription">
+                        Strategy comparison using the assumed return
+                    </small>
+                </div>
+            </div>
+        </section>
+
+        <div class="calculator-explanation">
+            <h2>How this calculator works</h2>
+
+            <p>
+                Paying debt produces a return equal to the interest that
+                no longer accrues. That benefit is treated as guaranteed
+                when the debt rate and repayment terms are fixed.
+            </p>
+
+            <p>
+                Savings interest is reduced using the combined federal and
+                state marginal tax rates entered. This is a simplified
+                estimate. It does not model deductions, exemptions, tax
+                brackets, or account-specific tax treatment.
+            </p>
+
+            <div class="formula-grid">
+                <div class="formula-card">
+                    <span>Cash available for debt</span>
+
+                    <code>
+                        Liquid cash - protected emergency reserve
+                    </code>
+                </div>
+
+                <div class="formula-card">
+                    <span>Net-worth comparison</span>
+
+                    <code>
+                        Savings and investments - remaining debt
+                    </code>
+                </div>
+            </div>
+
+            <p>
+                The break-even APY is the gross savings yield needed for
+                its estimated after-tax monthly return to match the
+                monthly cost of the debt. APR and APY are not identical,
+                so the break-even APY may be higher than the stated debt
+                APR even before taxes.
+            </p>
+
+            <p>
+                Liquidity is not a rounding error. Money sent to a lender
+                is no longer sitting in the account waiting for the water
+                heater to develop opinions. The calculator protects the
+                emergency reserve entered, but it cannot determine whether
+                that reserve is adequate for a particular household.
+            </p>
+
+            <p>
+                When a monthly payment is entered, the calculator assumes
+                that fixed amount continues until payoff and ignores the
+                remaining-term input. For credit cards, enter the amount
+                actually expected to be paid each month rather than a
+                variable minimum-payment formula.
+            </p>
+        </div>
+    </section>
+
+    <p class="tool-disclaimer">
+        For educational purposes only. Results are estimates and assume
+        monthly debt interest, a constant savings yield, fixed tax rates,
+        and a constant monthly payment. Mortgage-interest deductions,
+        escrow, prepayment penalties, promotional balance-transfer terms,
+        transfer fees, investment taxes, and changing rates are not
+        included. Paying debt can reduce liquidity, and assumed investment
+        returns are not guaranteed.
+    </p>
+</div>
