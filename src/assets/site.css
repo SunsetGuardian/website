@@ -604,8 +604,18 @@ input {
     overflow-wrap: anywhere;
 }
 
-.tool-disclaimer {
-    margin: 24px auto 0;
+.related-guide {
+    margin-top: 38px;
+}
+
+.related-guide .section-heading {
+    margin-bottom: 18px;
+}
+
+.tool-disclaimer,
+.compound-disclaimer,
+.rule72-disclaimer {
+    margin: 32px auto 0;
 
     color: var(--muted);
     font-size: 0.9rem;
